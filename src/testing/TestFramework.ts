@@ -314,7 +314,7 @@ namespace Blend.testing {
          */
         private pass(assertDescription?: string) {
             var me = this;
-            process.stdout.write(me.colors.black.bgGreen("."));
+            me.logger.log("pass", null, null);
             me.currentTest.testn++;
             me.currentTest.pass++;
         }
