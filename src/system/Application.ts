@@ -1,4 +1,4 @@
-namespace Blend.console {
+namespace Blend.system {
 
     export class Application {
 
