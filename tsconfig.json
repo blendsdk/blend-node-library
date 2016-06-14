@@ -9,6 +9,7 @@
     },
     "files": [
         "typings/index.d.ts",
+        "src/Blend.ts",
         "src/testing/TestFramework.ts",
         "src/testing/ConsoleLogger.ts",
         "src/Filesystem.ts",

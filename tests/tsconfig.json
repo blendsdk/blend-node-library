@@ -9,10 +9,12 @@
         "outFile": "build/tests.js"
     },
     "files": [
+        "../typings/index.d.ts",
         "../dist/blend-node-library.d.ts",
         "src/Init.js",
         "src/Main.ts",
         "tests/sanity-test.ts",
+        "tests/FilesystemTest.ts",
         "src/Kickstart.ts"
     ]
 }
