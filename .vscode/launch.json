@@ -6,9 +6,9 @@
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/tests/build/tests.js",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/tests/build",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "runtimeArgs": [
@@ -19,7 +19,7 @@
             },
             "externalConsole": false,
             "sourceMaps": true,
-            "outDir": null
+            "outDir": "${workspaceRoot}/tests/build"
         },
         {
             "name": "Attach",
@@ -29,7 +29,7 @@
             "address": "localhost",
             "restart": false,
             "sourceMaps": true,
-            "outDir": null,
+            "outDir": "${workspaceRoot}/tests/build",
             "localRoot": "${workspaceRoot}",
             "remoteRoot": null
         }
