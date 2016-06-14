@@ -23,6 +23,7 @@ namespace Blend.testing {
         }
 
         private updateCounts(type: string) {
+
             var me = this;
             if (type === 'pass' || type === 'fail') {
                 me.numAsserts += 1;
@@ -36,11 +37,12 @@ namespace Blend.testing {
 
         log(type: string, message: string, context?: any): any {
             var me = this;
-            this.updateCounts(type);
-
+            me.updateCounts(type);
             if (type === 'fail') {
                 console.log(me.colors.white.bgRed(`${context.test} ${message} ${JSON.stringify(context, null, 2)}`));
-            } else {
+            } else if (type === "pass") {
+                process.stdout.write(me.colors.white.bgGreen("."))
+            } else if (type !== "pass") {
                 console.log(type, message);
             }
         }
