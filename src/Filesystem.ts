@@ -5,9 +5,9 @@ namespace Blend {
      */
     export class Filesystem {
 
-        protected fs: any;
-        protected path: any;
-        protected fse: any;
+        public fs: any;
+        public path: any;
+        public fse: any;
 
         public constructor() {
             var me = this;
@@ -19,7 +19,7 @@ namespace Blend {
         /**
          * Converts the '/' to the corresponding path separator on the current OS
          */
-        protected makePath(value: string): string {
+        public makePath(value: string): string {
             var me = this;
             return value.replace("/", me.path.sep);
         }
@@ -27,10 +27,10 @@ namespace Blend {
         /**
          * Checks if a given fileExists
          */
-        protected fileExists(path: string) {
+        public fileExists(path: string) {
             var me = this;
             try {
-                var stat = me.fs.statSync(path);
+                var stat = me.fs.statSync(me.makePath(path));
                 if (stat) {
                     return stat.isFile();
                 } else {
@@ -44,10 +44,10 @@ namespace Blend {
         /**
          * Checks if a goven directory exists
          */
-        protected dirExists(path: string): boolean {
+        public directoryExists(path: string): boolean {
             var me = this;
             try {
-                var stat = me.fs.statSync(path);
+                var stat = me.fs.statSync(me.makePath(path));
                 if (stat) {
                     return stat.isDirectory();
                 } else {
@@ -61,7 +61,7 @@ namespace Blend {
         /**
          * Copy a file or a folder from source to dest
          */
-        protected copyFile(source: string, dest: string): boolean {
+        public copy(source: string, dest: string): boolean {
             var me = this,
                 s = me.makePath(source),
                 d = me.makePath(dest);
@@ -73,7 +73,7 @@ namespace Blend {
          * Recursively reads files from a given folder and applies a filter to
          * be able to exclude some files.
          */
-        protected findFiles(dir: string, filter: Function): Array<string> {
+        public findFiles(dir: string, filter: Function): Array<string> {
             var me = this,
                 results: Array<string> = [];
             filter = filter || function (fname: string) {
@@ -97,9 +97,9 @@ namespace Blend {
         /**
          * Removes and recreates a folder.
          */
-        protected reCreateFolder(folder: string) {
+        public reCreateFolder(folder: string) {
             var me = this;
-            if (me.dirExists(folder)) {
+            if (me.directoryExists(folder)) {
                 me.fse.removeSync(folder);
             }
             me.fs.mkdirSync(folder);
