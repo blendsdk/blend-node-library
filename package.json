@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/blendsdk/blend-node-library/issues"
   },
-  "homepage": "https://github.com/blendsdk/blend-node-library#readme"
+  "homepage": "https://github.com/blendsdk/blend-node-library#readme",
+  "dependencies": {
+    "colors": "^1.1.2"
+  }
 }

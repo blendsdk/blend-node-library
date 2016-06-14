@@ -6,3 +6,8 @@ typings.json
 tsconfig.json
 .npmignore
 publish*
+.vscode
+tests
+build.sh
+build
+*.log
