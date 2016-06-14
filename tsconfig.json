@@ -9,8 +9,12 @@
     },
     "files": [
         "typings/index.d.ts",
+        "src/testing/TestFramework.ts",
+        "src/testing/ConsoleLogger.ts",
         "src/Filesystem.ts",
-        "src/console/Application.ts",
+        "src/ChildProcess.ts",
+        "src/BuildUtils.ts",
+        "src/system/Application.ts",
         "src/Exports.ts"
     ]
 }

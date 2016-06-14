@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "noImplicitAny": true,
+        "declaration": false,
+        "allowJs": true,
+        "outFile": "build/tests.js"
+    },
+    "files": [
+        "../dist/blend-node-library.d.ts",
+        "src/Init.js",
+        "src/Main.ts",
+        "tests/sanity-test.ts",
+        "src/Kickstart.ts"
+    ]
+}
