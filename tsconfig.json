@@ -13,8 +13,10 @@
         "src/testing/TestFramework.ts",
         "src/testing/ConsoleLogger.ts",
         "src/Filesystem.ts",
+        "src/NPMPackage.ts",
         "src/ChildProcess.ts",
         "src/system/Application.ts",
+        "src/builder/Application.ts",
         "src/Exports.ts"
     ]
 }

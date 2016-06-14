@@ -11,7 +11,7 @@ interface ExecuteReturns {
 interface ExecuteOptions {
     cwd?: string;
     input?: string;
-    stdio?: any;
+    stdio?: string;
     env?: any;
     uid?: number;
     gid?: number;
@@ -20,6 +20,11 @@ interface ExecuteOptions {
     maxBuffer?: number;
     encoding?: string;
     shell?: boolean | string;
+}
+
+interface ExecueResult {
+    success: boolean;
+    result: any;
 }
 
 namespace Blend {
@@ -37,8 +42,9 @@ namespace Blend {
          * Executes an external utility and returns the results as an ExecuteReturns object
          */
         public execute(command: string, args?: string[], options?: ExecuteOptions): ExecuteReturns {
-            var me = this;
-            return <ExecuteReturns>me.childProcess.spawnSync(command, args, options);
+            var me = this, res: ExecuteReturns = me.childProcess.spawnSync(command, args, options);
+            res.stdout = res.stdout !== null ? res.stdout.toString() : "";
+            return res;
         }
 
     }
