@@ -1,0 +1,20 @@
+{
+  "name": "blend-node-library",
+  "version": "0.0.0",
+  "description": "A collection of AMD classes to help create NodeJS applications with TypeScript",
+  "main": "blend-node-library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blendsdk/blend-node-library.git"
+  },
+  "keywords": [],
+  "author": "Gevik Babakhani (TrueSoftware B.V.)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/blendsdk/blend-node-library/issues"
+  },
+  "homepage": "https://github.com/blendsdk/blend-node-library#readme"
+}

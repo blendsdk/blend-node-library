@@ -1,0 +1,4 @@
+.typingsrc
+typings
+node_modules
+dist

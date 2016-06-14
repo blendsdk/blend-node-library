@@ -1,0 +1,8 @@
+src
+.typingsrc
+typings
+setup.sh
+typings.json
+tsconfig.json
+.npmignore
+publish*
