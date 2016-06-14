@@ -4,7 +4,8 @@
   "description": "A collection of AMD classes to help create NodeJS applications with TypeScript",
   "main": "blend-node-library.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest" : "build.sh",
+    "test": "node tests/build/tests.js"
   },
   "repository": {
     "type": "git",

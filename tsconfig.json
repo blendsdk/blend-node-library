@@ -13,7 +13,6 @@
         "src/testing/ConsoleLogger.ts",
         "src/Filesystem.ts",
         "src/ChildProcess.ts",
-        "src/BuildUtils.ts",
         "src/system/Application.ts",
         "src/Exports.ts"
     ]
