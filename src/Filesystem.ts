@@ -105,5 +105,38 @@ namespace Blend {
             me.fs.mkdirSync(folder);
         }
 
+
+        /**
+         * Reads the contents of a file as text
+         */
+        public readFileText(filename: string): string {
+            var me = this;
+            return me.fs.readFileSync(me.makePath(filename)).toString();
+        }
+
+        /**
+         * Reads the contens of a file as text lines
+         */
+        public readFileLines(filename: string): Array<string> {
+            var me = this;
+            return me.readFileText(filename).split("\n");
+        }
+
+        /**
+         * Writes text contents to a file
+         */
+        public writeFileText(filename: string, contents: string) {
+            var me = this;
+            me.fs.writeFileSync(me.makePath(filename), contents);
+        }
+
+        /**
+         * Writes an array of string to a file
+         */
+        public writeFileLines(filename: string, lines: Array<string>) {
+            var me = this;
+            me.writeFileText(filename, lines.join("\n"));
+        }
+
     }
 }

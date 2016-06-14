@@ -211,49 +211,49 @@ export abstract class Utility {
         });
     };
 
-    /**
-     * Build the TS sources, both framework and tests
-     */
-    protected buildSources(folder: string, callback: Function) {
-        var me = this;
-        childProcess.exec("tsc", { cwd: folder }, function (error: Error, stdout: any, stderr: any) {
-            if (!error) {
-                callback.apply(me, [null]);
-            } else {
-                callback.apply(me, [stdout.toString()]);
-            }
-        });
-    }
+    // /**
+    //  * Build the TS sources, both framework and tests
+    //  */
+    // protected buildSources(folder: string, callback: Function) {
+    //     var me = this;
+    //     childProcess.exec("tsc", { cwd: folder }, function (error: Error, stdout: any, stderr: any) {
+    //         if (!error) {
+    //             callback.apply(me, [null]);
+    //         } else {
+    //             callback.apply(me, [stdout.toString()]);
+    //         }
+    //     });
+    // }
 
-    /**
-     * Print DONE
-     */
-    protected printDone() {
-        var me = this;
-        me.println(colors.green("DONE."));
-    }
+    // /**
+    //  * Print DONE
+    //  */
+    // protected printDone() {
+    //     var me = this;
+    //     me.println(colors.green("DONE."));
+    // }
 
-    /**
-     * Print ALL DONE
-     */
-    protected printAllDone() {
-        var me = this;
-        me.println(colors.green("ALL DONE."));
-    }
+    // /**
+    //  * Print ALL DONE
+    //  */
+    // protected printAllDone() {
+    //     var me = this;
+    //     me.println(colors.green("ALL DONE."));
+    // }
 
-    /**
-     * Writes message to screen with newline
-     */
-    protected println(message: string) {
-        console.log(message);
-    }
+    // /**
+    //  * Writes message to screen with newline
+    //  */
+    // protected println(message: string) {
+    //     console.log(message);
+    // }
 
-    /**
-     * Writes a message to screen without newline
-     */
-    protected print(message: string) {
-        process.stdout.write(message);
-    }
+    // /**
+    //  * Writes a message to screen without newline
+    //  */
+    // protected print(message: string) {
+    //     process.stdout.write(message);
+    // }
 
     /**
      * Minify a JS file
