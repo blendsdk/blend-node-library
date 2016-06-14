@@ -1,6 +1,6 @@
 {
   "name": "blend-node-library",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A collection of AMD classes to help create NodeJS applications with TypeScript",
   "main": "blend-node-library.js",
   "scripts": {

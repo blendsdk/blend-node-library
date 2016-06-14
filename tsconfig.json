@@ -8,6 +8,9 @@
         "outFile": "dist/blend-node-library.js"
     },
     "files": [
-        "typings/index.d.ts"
+        "typings/index.d.ts",
+        "src/Filesystem.ts",
+        "src/console/Application.ts",
+        "src/Exports.ts"
     ]
 }
