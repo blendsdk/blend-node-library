@@ -1,22 +1,13 @@
 {
     "compilerOptions": {
-        "module": "amd",
         "inlineSourceMap": true,
         "inlineSources": true,
         "noImplicitAny": true,
         "declaration": true,
-        "outFile": "dist/blend-node-library.js"
+        "outDir": "dist"
     },
     "files": [
         "typings/index.d.ts",
-        "src/Blend.ts",
-        "src/testing/TestFramework.ts",
-        "src/testing/ConsoleLogger.ts",
-        "src/Filesystem.ts",
-        "src/NPMPackage.ts",
-        "src/ChildProcess.ts",
-        "src/console/Application.ts",
-        "src/builder/Application.ts",
-        "src/Exports.ts"
+        "src/Blend.ts"
     ]
 }
