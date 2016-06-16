@@ -1,10 +1,10 @@
 {
   "name": "blend-node-library",
-  "version": "0.0.56",
+  "version": "0.0.77",
   "description": "A collection of classes to help create NodeJS applications with TypeScript",
   "main": "dist/blend-node-library.js",
   "scripts": {
-    "pretest": "./build.sh",
+    "pretest": "build.sh",
     "test": "node tests/build/src/Main.js"
   },
   "repository": {
@@ -21,6 +21,8 @@
   "dependencies": {
     "colors": "^1.1.2",
     "compare-version": "^0.1.2",
-    "fs-extra": "^0.30.0"
+    "fs-extra": "^0.30.0",
+    "uglify-js": "^2.6.2",
+    "uglifycss": "0.0.20"
   }
 }

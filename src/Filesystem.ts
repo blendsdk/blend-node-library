@@ -1,6 +1,7 @@
 import fs = require("fs");
 import path = require("path");
 import fse = require("fs-extra");
+import * as Blend from "./Blend";
 
 /**
  * The Filesystem component provides basic utilities for the filesystem.
@@ -16,7 +17,11 @@ export class Filesystem {
      */
     public makePath(value: string): string {
         var me = this;
-        return value.replace("/", path.sep);
+        if (Blend.isWindows) {
+            return value.replace(/\//g, "\\");
+        } else {
+            return value;
+        }
     }
 
     /**
@@ -90,16 +95,36 @@ export class Filesystem {
     }
 
     /**
-     * Removes and recreates a folder.
+     * Renames a fie or a directory
      */
-    public reCreateFolder(folder: string) {
+    public rename(oldPath: string, newPath: string) {
         var me = this;
-        if (me.directoryExists(folder)) {
-            fse.removeSync(folder);
-        }
-        fs.mkdirSync(folder);
+        fse.renameSync(oldPath, newPath);
     }
 
+    /**
+     * Removes a file of folder if it exists
+     */
+    public remove(path: string) {
+        if (fse.existsSync(path)) {
+            path = fs.realpathSync(path);
+            fse.removeSync(path);
+        }
+    }
+
+    /**
+     * Removes and recreates a folder.
+     */
+    public ensureFolder(folder: string, reCreate: boolean = false) {
+        var me = this;
+        if (fse.existsSync(folder)) {
+            folder = fs.realpathSync(folder);
+            if (reCreate === true) {
+                fse.removeSync(folder);
+            }
+        }
+        fse.ensureDirSync(folder);
+    }
 
     /**
      * Reads the contents of a file as text

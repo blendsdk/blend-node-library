@@ -12,6 +12,8 @@
         "typings/index.d.ts",
         "src/TestRunner.ts",
         "tests/sanity-test.ts",
+        "tests/filesystem-test.ts",
+        "tests/builder-application-test.ts",
         "src/Main.ts"
     ]
 }

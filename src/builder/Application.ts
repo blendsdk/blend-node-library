@@ -1,6 +1,11 @@
 import * as Blend from "../Blend";
-import { ExecueResult } from "../Typings";
+import { ExecuteResult } from "../Typings";
 import colors = require("colors");
+import path = require("path");
+import uglifyJS = require("uglify-js");
+import uglifyCSS = require("uglifycss");
+import compareVersion = require("compare-version");
+import child_process = require("child_process");
 
 /**
  * Base class for creating a code builder application
@@ -21,9 +26,58 @@ export abstract class Application extends Blend.console.Application {
         me.projectFolder = me.filesystem.makePath(projectFolder);
     }
 
+    /**
+     * Bumps a package version without git tag
+     */
+    protected bumpPackageVersion(semver: string, folder: string): ExecuteResult {
+        var me = this, res: ExecuteResult = {
+            success: false,
+            result: null
+        };
+        var result = me.childProcess.execute(me.childProcess.makeCommand("npm"), ["version", semver, "--no-git-tag-version"], { cwd: folder });
+        if (!result.error) {
+            res.success = true;
+            res.result = result.stdout.toString().trim();
+        } else {
+            res.result = result.stdout;
+        }
+        return res;
+    }
+
+    /**
+     * Compare two version strings
+     */
     protected compareVersion(version1: string, version2: string): number {
-        var cv = require("compare-version");
-        return cv(version1, version2);
+        return compareVersion(version1, version2);
+    }
+
+    /**
+     * Minifies a JS file
+     */
+    protected minifyJSFileTo(source: string, dest: string, options: any = {}) {
+        var me = this,
+            result = uglifyJS.minify(source, options);
+        me.filesystem.writeFileText(dest, result.code);
+    }
+
+    /**
+     * Minifies a CSS file
+     */
+    protected minifyCSSFileTo(source: string, dest: string, options: any = {}) {
+        var me = this,
+            result = uglifyCSS.processFiles([source], options);
+        me.filesystem.writeFileText(dest, result);
+    }
+
+    /**
+     * Find all CSS files recursively in a given folder
+     */
+    protected findCSSFiles(folder: string): Array<string> {
+        var me = this, extname: string;
+        return me.filesystem.findFiles(folder, function (file: string) {
+            extname = path.extname(file);
+            return extname === ".css";
+        });
     }
 
     /**
@@ -32,7 +86,7 @@ export abstract class Application extends Blend.console.Application {
     protected buildStyles(configRbFolder: string) {
         var me = this;
         me.print("Building Themes and Styles, ");
-        var res = me.childProcess.execute("compass", ["compile"], { cwd: configRbFolder });
+        var res = me.childProcess.execute(me.childProcess.makeCommand("compass", "bat"), ["compile"], { cwd: configRbFolder });
         if (res.stdout.trim().indexOf("error") === -1) {
             me.printDone();
             return true;
@@ -45,12 +99,12 @@ export abstract class Application extends Blend.console.Application {
     /**
      * Build the TS sources, both framework and tests
      */
-    protected buildSources(tsConfigColder: string): ExecueResult {
-        var me = this, res: ExecueResult = {
+    protected buildSources(tsConfigColder: string): ExecuteResult {
+        var me = this, res: ExecuteResult = {
             success: false,
             result: null
         };
-        var result = me.childProcess.execute("tsc", [], { cwd: tsConfigColder });
+        var result = me.childProcess.execute(me.childProcess.makeCommand("tsc"), [], { cwd: tsConfigColder });
         if (result.stdout.toString().trim() === "") {
             res.success = true;
             res.result = true;
@@ -63,12 +117,12 @@ export abstract class Application extends Blend.console.Application {
     /**
      * Checks if TypeScript exists and it is the correct version.
      */
-    protected checkTypeScriptSanity(): ExecueResult {
-        var me = this, res: ExecueResult = {
+    protected checkTypeScriptSanity(): ExecuteResult {
+        var me = this, res: ExecuteResult = {
             success: false,
             result: null
         };
-        var result = me.childProcess.execute("tsc", ["-v"], { cwd: __dirname });
+        var result = me.childProcess.execute(me.childProcess.makeCommand("tsc"), ["-v"], { cwd: me.projectFolder });
         if (!result.error) {
             var parts: Array<string> = result.stdout.trim().split(" ");
             if (parts.length !== 2) {
@@ -91,12 +145,12 @@ export abstract class Application extends Blend.console.Application {
     /**
      * Checks if compass exists and it is the correct version.
      */
-    protected checkCompassSanity(): ExecueResult {
-        var me = this, res: ExecueResult = {
+    protected checkCompassSanity(): ExecuteResult {
+        var me = this, res: ExecuteResult = {
             success: false,
             result: null
         }
-        var result = me.childProcess.execute("compass", ["-v"], { cwd: __dirname });
+        var result = me.childProcess.execute(me.childProcess.makeCommand("compass", "bat"), ["-v"], { cwd: me.projectFolder });
         if (!result.error) {
             var parts: Array<string> = result.stdout.split("\n");
             if (parts.length < 1) {
@@ -126,11 +180,11 @@ export abstract class Application extends Blend.console.Application {
      * Checks if compass exists and it is the correct version.
      */
     protected checkTSLintSanity() {
-        var me = this, res: ExecueResult = {
+        var me = this, res: ExecuteResult = {
             success: false,
             result: null
         }
-        var result = me.childProcess.execute("tslint", ["-v"], { cwd: __dirname });
+        var result = me.childProcess.execute(me.childProcess.makeCommand("tslint"), ["-v"], { cwd: me.projectFolder });
         if (!result.error) {
             var stdout = result.stdout.trim();
             var ver = me.compareVersion(me.minTSLintVersion, stdout);
@@ -170,6 +224,50 @@ export abstract class Application extends Blend.console.Application {
     protected printError(message: string) {
         var me = this;
         me.println(colors.red("ERROR: " + message));
+    }
+
+    /**
+     * Gets the current git branch name
+     */
+    protected getGitCurrentBranchName(repoFolder: string): string {
+        return child_process.execSync("git rev-parse --abbrev-ref HEAD", {
+            cwd: repoFolder
+        }).toString().trim();
+    }
+
+    /**
+     * Check if the current git branch is clean
+     */
+    protected isGitRepositoryClean(repoFolder: string): boolean {
+        var me = this;
+        return child_process.execSync("git status --porcelain", {
+            cwd: repoFolder
+        }).toString().trim() === "";
+    }
+
+    /**
+     * Commit all and tag a repository
+     */
+    protected gitCommitAndTag(tag: string, message: string) {
+        var me = this,
+            options = { cwd: me.projectFolder };
+        me.childProcess.execute("git", ["add", "."], options);
+        me.childProcess.execute("git", ["commit", "-a", `-m${message}`], options);
+        me.childProcess.execute("git", ["tag", tag], options);
+    }
+
+    /**
+     * Gets a npm config value
+     */
+    protected getNpmConfig(key: string) {
+        return child_process.execSync(`npm config get ${key}`).toString().trim();
+    }
+
+    /**
+     * sets a npm config value
+     */
+    protected setNpmConfig(key: string, value: any) {
+        return child_process.execSync(`npm config set ${key} ${value}`).toString().trim();
     }
 
 }

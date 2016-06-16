@@ -29,7 +29,7 @@ export interface ExecuteReturns {
     error: Error;
 }
 
-export interface ExecueResult {
+export interface ExecuteResult {
     success: boolean;
     result: any;
 }
