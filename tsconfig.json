@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
         "inlineSourceMap": true,
         "inlineSources": true,
         "noImplicitAny": true,
@@ -8,6 +10,21 @@
     },
     "files": [
         "typings/index.d.ts",
-        "src/Blend.ts"
+        "src/Blend.ts",
+        "src/Typings.ts",
+        "src/Filesystem.ts",
+        "src/ChildProcess.ts",
+
+        "src/testing/TestFramework.ts",
+        "src/testing/testing.ts",
+
+        "src/npm/Package.ts",
+        "src/npm/npm.ts",
+
+        "src/builder/Application.ts",
+        "src/builder/builder.ts",
+
+        "src/console/Application.ts",
+        "src/console/console.ts"
     ]
 }
