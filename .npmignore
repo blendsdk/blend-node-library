@@ -11,3 +11,4 @@ tests
 build.sh
 build
 *.log
+latest-package.tgz

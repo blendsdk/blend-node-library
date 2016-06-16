@@ -9,6 +9,9 @@ export { npm };
 import * as builder from "./builder/builder";
 export { builder };
 
+import * as testing from "./testing/testing";
+export { testing };
+
 export { Filesystem } from "./Filesystem";
 export { ChildProcess} from "./ChildProcess";
 

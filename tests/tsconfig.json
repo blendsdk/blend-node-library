@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "noImplicitAny": true,
+        "declaration": false,
+        "allowJs": true,
+        "outDir": "build"
+    },
+    "files": [
+        "typings/index.d.ts",
+        "src/TestRunner.ts",
+        "tests/sanity-test.ts",
+        "src/Main.ts"
+    ]
+}

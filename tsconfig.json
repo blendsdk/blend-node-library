@@ -10,7 +10,9 @@
     },
     "files": [
         "typings/index.d.ts",
+
         "src/Blend.ts",
+        "src/blend-node-library.ts",
         "src/Typings.ts",
         "src/Filesystem.ts",
         "src/ChildProcess.ts",

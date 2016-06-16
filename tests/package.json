@@ -1,0 +1,13 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/src/Main.js",
+  "scripts": {
+    "pretest": "tsc",
+    "test": "node build/src/Main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

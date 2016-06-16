@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "blend-node-library": "file:node_modules/blend-node-library/dist/blend-node-library.d.ts"
+  },
+  "globalDependencies": {
+    "colors": "registry:dt/colors#0.6.0-1+20160501135139",
+    "node": "registry:dt/node#6.0.0+20160613154055"
+  }
+}

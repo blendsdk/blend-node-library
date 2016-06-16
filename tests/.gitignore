@@ -5,3 +5,4 @@ dist
 *.logtemp
 temp
 latest-package.tgz
+build

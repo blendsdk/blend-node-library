@@ -5,7 +5,7 @@
   "main": "dist/blend-node-library.js",
   "scripts": {
     "pretest": "./build.sh",
-    "test": "node tests/build/tests.js"
+    "test": "node tests/build/src/Main.js"
   },
   "repository": {
     "type": "git",
