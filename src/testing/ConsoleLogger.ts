@@ -39,11 +39,11 @@ namespace Blend.testing {
             var me = this;
             me.updateCounts(type);
             if (type === 'fail') {
-                console.log(me.colors.white.bgRed(`${context.test} ${message} ${JSON.stringify(context, null, 2)}`));
+                Blend.println(me.colors.white.bgRed(`${context.test} ${message} ${JSON.stringify(context, null, 2)}`));
             } else if (type === "pass") {
                 process.stdout.write(me.colors.white.bgGreen("."))
             } else if (type !== "pass") {
-                console.log(type, message);
+                Blend.println(type + " " + message);
             }
         }
 

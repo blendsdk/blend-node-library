@@ -161,55 +161,55 @@ export abstract class Utility {
         });
     }
 
-    /**
-     * Checks if compass exists and it is the correct version.
-     */
-    protected checkCompassSanity(callback: Function) {
-        var me = this;
-        childProcess.exec("compass -v", { cwd: __dirname }, function (error: Error, stdout: any, stderr: any) {
-            if (!error) {
-                var parts: Array<string> = stdout.split("\n");
-                if (parts.length < 1) {
-                    callback.apply(me, ["Could not recognize Compass!"]);
-                }
-                parts = parts[0].split(" ");
-                if (parts.length !== 3) {
-                    callback.apply(me, ["Could not read Compass version!"]);
-                }
-                var res = compareVersion(me.minCompassVersion, parts[1]);
-                if (res === 0 || res === -1) {
-                    callback.apply(me, [null]);
-                } else {
-                    callback.apply(me, ["Invalid Compass version! Found " + parts[1] + ", but we require as least " + me.minCompassVersion]);
-                }
-            } else {
-                callback.apply(me, ["No Compass installation found!"]);
-            }
-        });
-    }
+    // /**
+    //  * Checks if compass exists and it is the correct version.
+    //  */
+    // protected checkCompassSanity(callback: Function) {
+    //     var me = this;
+    //     childProcess.exec("compass -v", { cwd: __dirname }, function (error: Error, stdout: any, stderr: any) {
+    //         if (!error) {
+    //             var parts: Array<string> = stdout.split("\n");
+    //             if (parts.length < 1) {
+    //                 callback.apply(me, ["Could not recognize Compass!"]);
+    //             }
+    //             parts = parts[0].split(" ");
+    //             if (parts.length !== 3) {
+    //                 callback.apply(me, ["Could not read Compass version!"]);
+    //             }
+    //             var res = compareVersion(me.minCompassVersion, parts[1]);
+    //             if (res === 0 || res === -1) {
+    //                 callback.apply(me, [null]);
+    //             } else {
+    //                 callback.apply(me, ["Invalid Compass version! Found " + parts[1] + ", but we require as least " + me.minCompassVersion]);
+    //             }
+    //         } else {
+    //             callback.apply(me, ["No Compass installation found!"]);
+    //         }
+    //     });
+    // }
 
-    /**
-     * Checks if TypeScript exists and it is the correct version.
-     */
-    protected checkTypeScriptSanity = function (callback: Function) {
-        var me = this;
-        childProcess.exec("tsc -v", { cwd: __dirname }, function (error: Error, stdout: any, stderr: any) {
-            if (!error) {
-                var parts: Array<string> = stdout.trim().split(" ");
-                if (parts.length !== 2) {
-                    callback.apply(me, ["Could not recognize TypeScript!"]);
-                }
-                var res = compareVersion(me.minTypeScriptVersion, parts[1]);
-                if (res === 0 || res === -1) {
-                    callback.apply(me, [null]);
-                } else {
-                    callback.apply(me, ["Invalid TypeScript version! Found " + parts[1] + ", but we require as least " + me.minTypeScriptVersion]);
-                }
-            } else {
-                callback.apply(me, ["No TypeScript installation found!"]);
-            }
-        });
-    };
+    // /**
+    //  * Checks if TypeScript exists and it is the correct version.
+    //  */
+    // protected checkTypeScriptSanity = function (callback: Function) {
+    //     var me = this;
+    //     childProcess.exec("tsc -v", { cwd: __dirname }, function (error: Error, stdout: any, stderr: any) {
+    //         if (!error) {
+    //             var parts: Array<string> = stdout.trim().split(" ");
+    //             if (parts.length !== 2) {
+    //                 callback.apply(me, ["Could not recognize TypeScript!"]);
+    //             }
+    //             var res = compareVersion(me.minTypeScriptVersion, parts[1]);
+    //             if (res === 0 || res === -1) {
+    //                 callback.apply(me, [null]);
+    //             } else {
+    //                 callback.apply(me, ["Invalid TypeScript version! Found " + parts[1] + ", but we require as least " + me.minTypeScriptVersion]);
+    //             }
+    //         } else {
+    //             callback.apply(me, ["No TypeScript installation found!"]);
+    //         }
+    //     });
+    // };
 
     // /**
     //  * Build the TS sources, both framework and tests

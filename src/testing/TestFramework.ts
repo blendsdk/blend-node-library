@@ -355,7 +355,6 @@ namespace Blend.testing {
          */
         private testFinished() {
             var me = this;
-            console.log("\n");
             me.logger.info("No more tests to run in this group.");
             me.logger.close();
         }

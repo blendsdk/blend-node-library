@@ -1,24 +1,43 @@
-
 namespace Blend.builder {
 
     /**
      * Base class for creating a code builder application
      */
-    export abstract class Application extends Blend.system.Application {
+    export abstract class Application extends Blend.console.Application {
 
         protected minTypeScriptVersion: string;
         protected minCompassVersion: string;
+        protected projectFolder: string;
+        protected minTSLintVersion: string;
 
-        public constructor() {
+        public constructor(projectFolder: string) {
             super();
             var me = this;
             me.minTypeScriptVersion = "1.8.10";
             me.minCompassVersion = "1.0.3";
+            me.minTSLintVersion = "3.10.2";
+            me.projectFolder = me.filesystem.makePath(projectFolder);
         }
 
         protected compareVersion(version1: string, version2: string): number {
             var cv = require("compare-version");
             return cv(version1, version2);
+        }
+
+        /**
+         * Build the themes and styles used external Compass
+         */
+        protected buildStyles(configRbFolder: string) {
+            var me = this;
+            me.print("Building Themes and Styles, ");
+            var res = me.childProcess.execute("compass", ["compile"], { cwd: configRbFolder });
+            if (res.stdout.trim().indexOf("error") === -1) {
+                me.printDone();
+                return true;
+            } else {
+                me.printError(res.stdout.toString());
+                return false;
+            }
         }
 
         /**
@@ -30,15 +49,11 @@ namespace Blend.builder {
                 result: null
             };
             var result = me.childProcess.execute("tsc", [], { cwd: tsConfigColder });
-            if (!result.error) {
-                if (result.stdout.indexOf("error") !== -1) {
-                    res.result = result.stdout;
-                } else {
-                    res.result = true;
-                    res.result = true;
-                }
+            if (result.stdout.toString().trim() === "") {
+                res.success = true;
+                res.result = true;
             } else {
-                res.result = result.error.message;
+                res.result = result.stdout;
             }
             return res;
         }
@@ -106,6 +121,32 @@ namespace Blend.builder {
         }
 
         /**
+         * Checks if compass exists and it is the correct version.
+         */
+        protected checkTSLintSanity() {
+            var me = this, res: ExecueResult = {
+                success: false,
+                result: null
+            }
+            var result = me.childProcess.execute("tslint", ["-v"], { cwd: __dirname });
+            if (!result.error) {
+                var stdout = result.stdout.trim();
+                var ver = me.compareVersion(me.minTSLintVersion, stdout);
+                if (ver === 0 || ver === -1) {
+                    res.success = true;
+                    res.result = true;
+                } else {
+                    res.result = "Invalid TSLint version! Found " + stdout + ", but we require as least " + me.minTSLintVersion;
+                }
+            } else {
+                res.success = false;
+                res.result = result.error.message;
+
+            }
+            return res;
+        }
+
+        /**
          * Print DONE
          */
         protected printDone() {
@@ -119,6 +160,14 @@ namespace Blend.builder {
         protected printAllDone() {
             var me = this;
             me.println(me.colors.green("ALL DONE."));
+        }
+
+        /**
+         * Print an error message in red
+         */
+        protected printError(message: string) {
+            var me = this;
+            me.println(me.colors.red("ERROR: " + message));
         }
 
     }

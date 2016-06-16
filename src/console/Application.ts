@@ -1,4 +1,4 @@
-namespace Blend.system {
+namespace Blend.console {
 
     export abstract class Application {
 
@@ -19,14 +19,14 @@ namespace Blend.system {
          * Writes message to screen with newline
          */
         protected println(message: string) {
-            console.log(message);
+            Blend.println(message);
         }
 
         /**
          * Writes a message to screen without newline
          */
         protected print(message: string) {
-            process.stdout.write(message);
+            Blend.print(message);
         }
 
     }

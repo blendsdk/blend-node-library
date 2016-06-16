@@ -15,7 +15,7 @@
         "src/Filesystem.ts",
         "src/NPMPackage.ts",
         "src/ChildProcess.ts",
-        "src/system/Application.ts",
+        "src/console/Application.ts",
         "src/builder/Application.ts",
         "src/Exports.ts"
     ]

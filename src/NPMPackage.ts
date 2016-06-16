@@ -4,6 +4,7 @@ namespace Blend {
 
         public name: string;
         public version: string;
+        public description: string;
 
         constructor(folder?: string) {
 
