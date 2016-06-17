@@ -27,4 +27,10 @@ export abstract class Application {
         Blend.print(message);
     }
 
+    /**
+     * Get the home folder of the current user
+     */
+    protected getUserHomeFolder() {
+        return process.env.HOME || process.env.USERPROFILE;
+    }
 }

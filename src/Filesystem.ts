@@ -15,13 +15,12 @@ export class Filesystem {
     /**
      * Converts the '/' to the corresponding path separator on the current OS
      */
-    public makePath(value: string): string {
+    public makePath(value: string, makeReal: boolean = false): string {
         var me = this;
         if (Blend.isWindows) {
-            return value.replace(/\//g, "\\");
-        } else {
-            return value;
+            value =  value.replace(/\//g, "\\");
         }
+        return makeReal ? fs.realpathSync(value) : value;
     }
 
     /**

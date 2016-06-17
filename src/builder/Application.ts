@@ -23,7 +23,7 @@ export abstract class Application extends Blend.console.Application {
         me.minTypeScriptVersion = "1.8.10";
         me.minCompassVersion = "1.0.3";
         me.minTSLintVersion = "3.10.2";
-        me.projectFolder = me.filesystem.makePath(projectFolder);
+        me.projectFolder = me.filesystem.makePath(projectFolder, true);
     }
 
     /**
