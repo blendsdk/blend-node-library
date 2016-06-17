@@ -9,7 +9,7 @@ if [ -n "$semver" ]; then
     tsc
     npm version $semver --no-git-tag-version
     version=`node -e "console.log(require('./package.json').version);"`
-    if [ $mode == "prod" ]; then
+    if [ "$mode" == "prod" ]; then
         git add .
         message="Savepoint before tagging to version $version"
         git commit -a -m"$message"
