@@ -1,6 +1,6 @@
 {
   "name": "blend-node-library",
-  "version": "0.0.77",
+  "version": "0.0.78",
   "description": "A collection of classes to help create NodeJS applications with TypeScript",
   "main": "dist/blend-node-library.js",
   "scripts": {
